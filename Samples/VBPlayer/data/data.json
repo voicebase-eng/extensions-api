@@ -1,0 +1,11 @@
+[{
+  "agentScore": 7,
+  "customerSatisfaction": 8,
+  "mediaFile": "call1.ogg",
+  "jsonFile": "call1.json"
+}, {
+  "agentScore": 4,
+  "customerSatisfaction": 5,
+  "mediaFile": "call2.ogg",
+  "jsonFile": "call2.json"
+}]

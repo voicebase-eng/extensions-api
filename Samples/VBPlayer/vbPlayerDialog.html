@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VB Player</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+
+    <!-- Extensions Library (this will be hosted on a CDN eventually) -->
+    <script src="../../lib/tableau-extensions-1.latest.js"></script>
+
+    <!-- Our extension's code -->
+    <script src="./vbPlayerDialog.js"></script>
+</head>
+<body>
+<div class="container">
+    <h4>VB Player Extension</h4>
+    <p>
+        This Extension allows media to be played using the player.
+    </p>
+    <hr />
+    <div class="form-group">
+        <label for="worksheetName">Worksheet Name</label>
+        <input
+                type="text"
+                class="form-control"
+                id="worksheetName"
+                aria-describedby="worksheetNameHelp"
+                placeholder="Enter a worksheet name"
+        />
+        <small id="worksheetNameHelp" class="form-text text-muted">
+            Which worksheet should be clickable?
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="playerUrl">Player Url</label>
+        <input
+                type="text"
+                class="form-control"
+                id="playerUrl"
+                aria-describedby="playerUrlHelp"
+                placeholder="Enter the url for the player"
+        />
+        <small id="playerUrlHelp" class="form-text text-muted">
+            Where are you hosting the player? E.g. "https://localhost:8080/player"
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="pathToFiles">Path to Files</label>
+        <input
+                type="text"
+                class="form-control"
+                id="pathToFiles"
+                aria-describedby="pathToFilesHelp"
+                placeholder="Enter a path to your hosted files"
+        />
+        <small id="pathToFilesHelp" class="form-text text-muted">
+            Where should we fetch JSON and media from? E.g. "https://localhost:8080" (we will append "/[filename]")
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="mediaColumnName">JSON Column Name</label>
+        <input
+                type="text"
+                class="form-control"
+                id="mediaColumnName"
+                aria-describedby="mediaColumnNameHelp"
+                placeholder="Enter the column name for media"
+        />
+        <small id="mediaColumnNameHelp" class="form-text text-muted">
+            What column will contain the media file name? Note: Only .ogg media files are supported.
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="jsonColumnName">JSON Column Name</label>
+        <input
+                type="text"
+                class="form-control"
+                id="jsonColumnName"
+                aria-describedby="jsonColumnNameHelp"
+                placeholder="Enter the column name for JSON"
+        />
+        <small id="jsonColumnNameHelp" class="form-text text-muted">
+            What column will contain the JSON file name?
+        </small>
+    </div>
+    <button type="button" id="closeButton" class="btn btn-primary">Save</button>
+</div>
+</body>
+</html>
