@@ -19,8 +19,8 @@
         playerUrl: 'http://localhost:8765/Samples/VBPlayer/player',
         worksheetName: 'Calls',
         pathToFiles: 'http://localhost:8765/Samples/VBPlayer/resources',
-        mediaColumnName: 'mediaFile',
-        jsonColumnName: 'jsonFile',
+        mediaColumnName: 'ATTR(Media File)',
+        jsonColumnName: 'ATTR(Json File)',
     };
     const playerSettingsKey = 'vbPlayerSettings';
     let playerSettings = {};
@@ -117,16 +117,39 @@
                 });
             });
 
-            const mediaUrl = `${playerSettings.pathToFiles}/call1.ogg`;
-            const analyticsUrl = `${playerSettings.pathToFiles}/call1.json`;
-            const playerUrl = playerSettings.playerUrl;
-            const iframeUrl = `${playerUrl}#apiUrl=https://apis.voicebase.com/v3&analyticsFormat=ANALYTICS_SCHEMA_VERSION_V3&mediaUrl=${mediaUrl}&analyticsUrl=${analyticsUrl}`;
-            $('#active').html(`
-                <iframe
-                    id="player"
-                    src="${iframeUrl}"
-                ></iframe>
-            `).show();
+            const leadingMark = dashboardActiveMarks.pop();
+            if (leadingMark) {
+                console.log(leadingMark);
+                const playerData = leadingMark.columns.reduce((acc, column, i) => {
+                    console.log(playerSettings.mediaColumnName, column.fieldName);
+                    if (column.fieldName === playerSettings.mediaColumnName) {
+                        return Object.assign(acc, { mediaName: leadingMark.data[0][i].value });
+                    }
+
+                    if (column.fieldName === playerSettings.jsonColumnName) {
+                        return Object.assign(acc, { jsonName: leadingMark.data[0][i].value });
+                    }
+
+                    return acc;
+                }, {});
+
+                if(playerData.mediaName && playerData.jsonName) {
+                    const mediaUrl = `${playerSettings.pathToFiles}/${playerData.mediaName}`;
+                    const analyticsUrl = `${playerSettings.pathToFiles}/${playerData.jsonName}`;
+                    const playerUrl = playerSettings.playerUrl;
+                    const iframeUrl = `${playerUrl}#apiUrl=https://apis.voicebase.com/v3&analyticsFormat=ANALYTICS_SCHEMA_VERSION_V3&mediaUrl=${mediaUrl}&analyticsUrl=${analyticsUrl}`;
+                    $('#active').html(`
+                        <iframe
+                            id="player"
+                            src="${iframeUrl}"
+                        ></iframe>
+                    `).show();
+                } else {
+                    $('#active').html('No mark with media & json is selected').show();
+                }
+            } else {
+                $('#active').html('').show();
+            }
         });
     }
 
